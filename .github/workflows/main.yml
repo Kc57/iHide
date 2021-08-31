@@ -4,6 +4,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
+    tags:        
+      - v*.*.*           # Push events to v1.0.0, v1.1.1, v2.0.1, etc
 
 jobs:
   build:
