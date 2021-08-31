@@ -1,6 +1,8 @@
 # iHide
 A utility for hiding jailbreak from iOS applications
 
+![iHide Banner](_docs/images/banner.png?raw=true)
+
 ## Description
 Once installed, iHide will add a new entry in the iOS settings pane that can be used to enable/disable bypassing common jailbreak detection methods. Simply enable iHide, select any applications to enable it for, and iHide will attempt to bypass common jailbreak detection techniques.
 
