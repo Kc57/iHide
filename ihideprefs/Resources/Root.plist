@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Settings</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.kc57.ihideprefs</string>
+			<key>key</key>
+			<string>AwesomeSwitch1</string>
+			<key>label</key>
+			<string>Enable iHide</string>
+			<key>PostNotification</key>
+			<string>com.kc57.ihideprefs/settingschanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>bundle</key>
+			<string>AppList</string>
+			<key>isController</key>
+			<string>1</string>
+			<key>label</key>
+			<string>Disable Jailbreak Detection</string>
+			<key>ALAllowsSelection</key>
+			<string>1</string>
+			<key>ALSingleEnabledMode</key>
+			<string>0</string>
+			<key>ALSettingsKeyPrefix</key>
+			<string>EnabledApps-</string>
+			<key>ALSettingsPath</key>
+			<string>/var/mobile/Library/Preferences/com.kc57.ihideprefs.plist</string>
+			<key>ALSectionDescriptors</key>
+			<array>
+				<!--
+				<dict>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>predicate</key>
+					<string>isSystemApplication = TRUE</string>
+					<key>suppress-hidden-apps</key>
+					<string>1</string>
+					<key>title</key>
+					<string>System Applications</string>
+				</dict>
+				-->
+				<dict>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>predicate</key>
+					<string>isSystemApplication = FALSE</string>
+					<key>suppress-hidden-apps</key>
+					<string>1</string>
+					<key>title</key>
+					<string>User Applications</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>iHide</string>
+</dict>
+</plist>

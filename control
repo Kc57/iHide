@@ -1,0 +1,11 @@
+Package: com.kc57.ihide
+Name: iHide
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Utility for hiding jailbreak from applications
+Maintainer: Rob Simon (@_Kc57)
+Author: Rob Simon (@_Kc57)
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000), applist, firmware (>= 3.0), com.rpetrich.rocketbootstrap (>= 1.0.3), preferenceloader
+Icon: file:///Library/PreferenceBundles/ihidePrefs.bundle/icon@2x.png
+Depiction: https://repo.kc57.com/depiction/web/com.kc57.ihide.html
