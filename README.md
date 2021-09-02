@@ -34,5 +34,8 @@ The tweak can later be uninstalled using:
 dpkg -r com.kc57.ihide
 ```
 
+## Feature Requests
+If you run into an application that is not currently supported, please use the feature request template to request an update.
+
 ## Author
 Rob Simon - @_Kc57
