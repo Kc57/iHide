@@ -38,4 +38,4 @@ dpkg -r com.kc57.ihide
 If you run into an application that is not currently supported, please use the feature request template to request an update.
 
 ## Author
-Rob Simon - @_Kc57
+Rob Simon - [@_Kc57](https://twitter.com/_Kc57)
