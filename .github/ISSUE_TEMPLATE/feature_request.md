@@ -17,6 +17,7 @@ assignees: ''
 ### How is the detection triggered?
  - On application launch
  - After logging in and using biometrics
+ - Does the application require a valid user/password to log in before triggering the jailbreak detection?
 
 ### What does the application do when jailbreak is detected
  - Alerts the user and allows limited functionality (e.g. can't use biometrics)
