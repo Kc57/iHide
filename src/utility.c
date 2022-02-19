@@ -58,7 +58,8 @@ const char *statPaths[] = {
   "/var/lib/cydia",
   "/var/log/syslog",
   "/var/root",
-  "/var/tmp/cydia.log"
+  "/var/tmp/cydia.log",
+  "/Library/MobileSubstrate/DynamicLibraries/ihide.dylib"
 };
 
 const char *spawnPaths[] = {

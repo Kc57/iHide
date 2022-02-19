@@ -8,7 +8,7 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = ihide
 
-ihide_FILES = Tweak.x src/utility.c src/objcutils.m
+ihide_FILES = Tweak.x src/utility.c src/objcutils.m src/objchooks.m
 ihide_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk

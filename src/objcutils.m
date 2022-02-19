@@ -104,3 +104,7 @@ bool objc_isKnownBadPath(NSString *path) {
   return false;
 
 }
+
+void updateMethodDict(NSMutableDictionary * dictMethods, IMP hook, IMP *old) {
+  [dictMethods setObject:[NSValue valueWithPointer:old_fileExistsAtPath] forKey:[NSValue valueWithPointer:old_fileExistsAtPath]];
+}

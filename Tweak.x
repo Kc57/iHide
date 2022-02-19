@@ -12,6 +12,7 @@
 #include "include/cfuncs.h"
 #include "include/utility.h"
 #import "include/objcutils.h"
+#import "include/objchooks.h"
 
 #define _PLIST @"/var/mobile/Library/Preferences/com.kc57.ihideprefs.plist"
 #define pref_getValue(key) [[NSDictionary dictionaryWithContentsOfFile:_PLIST] valueForKey:key]
@@ -85,7 +86,7 @@ static NSString *nsNotificationString = @"com.kc57.ihideprefs/settingschanged";
 // -[NSString writeToFile:atomically:encoding:error:]
 %end
 
-
+/*
 %hook NSFileManager
 - (BOOL)fileExistsAtPath:(NSString *)path {
 
@@ -100,8 +101,56 @@ static NSString *nsNotificationString = @"com.kc57.ihideprefs/settingschanged";
 }
 // -[NSFileManager fileExistsAtPath:]
 %end
+*/
+
+/*
+static BOOL (*old_fileExistsAtPath)(void* self, SEL _cmd,NSString* path) = NULL;
+static BOOL st_fileExistsAtPath(void* self, SEL _cmd, NSString* path){
+  if (objc_isKnownBadPath(path)) {
+    NSLog(@"[iHide] Hooked fileExistsAtPath -> %@", path);
+    NSLog(@"[iHide] Patching fileExistsAtPath return: NO");
+    return NO;
+  }
+  return old_fileExistsAtPath(self,_cmd,path);
+}
+
+__attribute__((constructor)) static void initialize() {
+  NSLog(@"Hooking...");
+  MSHookMessageEx([NSFileManager class], @selector(fileExistsAtPath:), (IMP)st_fileExistsAtPath, (IMP *)&old_fileExistsAtPath);
+  NSLog(@"old_fileExistsAtPath: %p", old_fileExistsAtPath);
+  NSLog(@"st_fileExistsAtPath: %p", st_fileExistsAtPath);
+}
+*/
 
 // ============ System calls ============
+//static char * validLibPath = "/System/Library/Frameworks/Foundation.framework/Foundation";
+//static char * badLibPath = "/Library/MobileSubstrate/DynamicLibraries/ihide.dylib";
+
+%hookf(int, dladdr, const void *addr, Dl_info *info) {
+
+  //char * newPath = malloc(strlen(validLibPath) + 1); // memory leak
+  //strcpy(newPath,validLibPath);
+
+  int result = %orig(addr, info);
+  if ((result != 0) && (info != NULL) && (info->dli_fname != NULL)) {
+    NSLog(@"[iHide] hooking dladdr addr: %p   fname = %s    sname = %s",addr, info->dli_fname, info->dli_sname);
+    /*
+    if(strcmp(info->dli_fname, badLibPath) == 0) {
+      NSLog(@"[iHide] patching dladdr fname = %s to %s", info->dli_fname, validLibPath);
+      Dl_info * dlInfo = info;
+      dlInfo->dli_fname = newPath;
+    }
+    */
+    if(addr == st_fileExistsAtPath) {
+      NSLog(@"[iHide] patching dladdr check swapping addr: %p for original addr: %p", addr, old_fileExistsAtPath);
+      result = %orig(old_fileExistsAtPath, info);
+      NSLog(@"[iHide] UPDATED dladdr addr: %p   fname = %s    sname = %s",old_fileExistsAtPath, info->dli_fname, info->dli_sname);
+    }
+
+  }
+
+  return result;
+}
 
 %hookf(int, stat, const char *restrict path, struct stat *restrict buf) {
   if(isKnownBadPath(path))
@@ -127,7 +176,7 @@ static NSString *nsNotificationString = @"com.kc57.ihideprefs/settingschanged";
 %hookf(DIR *, fopen, const char *restrict filename, const char *restrict mode) {
   if (isKnownBadPath(filename))
   {
-    NSLog(@"[iHide] hooking fopen filename: %s", filename);
+    NSLog(@"[iHide] hooking fopen filename: %s\n\n%@", filename, [NSThread callStackSymbols]);
     return NULL;
     //NSLog(@"[iHide] %@",[NSThread callStackSymbols]);
   }
