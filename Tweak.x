@@ -113,6 +113,16 @@ static NSString *nsNotificationString = @"com.kc57.ihideprefs/settingschanged";
   return %orig;
 }
 
+%hookf(int, lstat, const char *restrict path, struct stat *restrict buf) {
+  if(isKnownBadPath(path))
+  {
+    NSLog(@"[iHide] hooking lstat path: %s", path);
+    return -1;
+  }
+  // Call the original implementation of this function
+  return %orig;
+}
+
 %hookf(DIR *, opendir, const char *dirname) {
   if (isKnownBadPath(dirname))
   {

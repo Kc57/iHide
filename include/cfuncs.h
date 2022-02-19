@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 
 int stat(const char *restrict path, struct stat *restrict buf);
+int lstat(const char *restrict path, struct stat *restrict buf);
 DIR * opendir(const char *dirname);
 int posix_spawn(pid_t *restrict pid, const char *restrict path,
   const posix_spawn_file_actions_t *file_actions,
